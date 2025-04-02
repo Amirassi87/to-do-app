@@ -1,9 +1,21 @@
 
-function Task() {
+function Task( {task }) {
 
     return (
         <>
-         <li className="completed">
+      <li>
+          <div className="view">
+            <input className="toggle" type="checkbox"/>
+            <label>
+              <span className="description">{task}</span>
+              <span className="created">created 5 minutes ago</span>
+            </label>
+            <button className="icon icon-edit"></button>
+            <button className="icon icon-destroy"></button>
+          </div>
+        </li> 
+
+         {/* <li className="completed">
           <div className="view">
             <input className="toggle" type="checkbox" defaultValue="test"/>
             <label>
@@ -13,8 +25,8 @@ function Task() {
             <button className="icon icon-edit"></button>
             <button className="icon icon-destroy"></button>
           </div>
-        </li>
-         <li className="editing">
+        </li> */}
+         {/* <li className="editing">
           <div className="view">
             <input className="toggle" type="checkbox"/>
             <label>
@@ -36,7 +48,7 @@ function Task() {
             <button className="icon icon-edit"></button>
             <button className="icon icon-destroy"></button>
           </div>
-        </li>
+        </li> */}
       
         </>
     )

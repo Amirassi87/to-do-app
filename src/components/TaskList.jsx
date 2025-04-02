@@ -1,11 +1,16 @@
 import Task from './Task.jsx'
 
 
-function TaskList() {
+function TaskList({ tasks }) {
 
+   const taskList = tasks.map((task) => (
+    <Task task = { task.taskTodo } /> 
+  ))
     return (
     <>
-   <Task />
+    <ul className="todo-list">
+   {taskList}
+   </ul>
     </>
     )
     }

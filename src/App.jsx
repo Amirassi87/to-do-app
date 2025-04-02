@@ -32,13 +32,10 @@ const addTask = (taskName) => {
           <NewTaskForm addTask = { addTask } />
         </header>
         <section className="main">
-        <ul className="todo-list">
-          <TaskList/>
-          </ul>
+          <TaskList tasks = { tasks }/>
           <footer className="footer">
           <Footer/>
           </footer>
-    
         </section>
       </section>
   );
