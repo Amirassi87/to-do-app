@@ -1,34 +1,55 @@
+import React, { useState } from "react";
 
-function Task( {task }) {
+const Task = ({ task, isCompleted, edit, del }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newTaskVal, setNewTaskVal] = useState("");
 
-    return (
-        <>
-      <li>
+
+  const handleChange = (e) => {
+    setNewTaskVal(e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    edit(newTaskVal , task.taskTodo);
+    setIsEditing(false);
+    setNewTaskVal("")
+  };
+
+  return (
+    <>
+      {isEditing == false ? (
+        <li className={`${task.completed ? "completed" : ""}`}>
           <div className="view">
-            <input className="toggle" type="checkbox"/>
+            <input
+              onChange={() => isCompleted(task.taskTodo)}
+              className="toggle"
+              type="checkbox"
+            />
             <label>
-              <span className="description">{task}</span>
-              <span className="created">created 5 minutes ago</span>
+              <span className="description"> {task.taskTodo}</span>
+              <span className="created">created {task.createdAt}</span>
             </label>
-            <button className="icon icon-edit"></button>
-            <button className="icon icon-destroy"></button>
-          </div>
-        </li> 
+            {task.completed ? (
+              " "
+            ) : (
+              <button
+                onClick={() => setIsEditing(true)}
+                className="icon icon-edit"
+              ></button>
+            )}
 
-         {/* <li className="completed">
-          <div className="view">
-            <input className="toggle" type="checkbox" defaultValue="test"/>
-            <label>
-              <span className="description">Completed task</span>
-              <span className="created">created 17 seconds ago</span>
-            </label>
-            <button className="icon icon-edit"></button>
-            <button className="icon icon-destroy"></button>
+            <button
+              onClick={() => del(task.taskTodo)}
+              className="icon icon-destroy"
+            ></button>
           </div>
-        </li> */}
-         {/* <li className="editing">
+          <input type="text" className="edit" />
+        </li>
+      ) : (
+        <li className="editing">
           <div className="view">
-            <input className="toggle" type="checkbox"/>
+            <input className="toggle" type="checkbox" />
             <label>
               <span className="description">Editing task</span>
               <span className="created">created 5 minutes ago</span>
@@ -36,22 +57,19 @@ function Task( {task }) {
             <button className="icon icon-edit"></button>
             <button className="icon icon-destroy"></button>
           </div>
-          <input type="text" className="edit"/>
-        </li> 
-        <li>
-          <div className="view">
-            <input className="toggle" type="checkbox"/>
-            <label>
-              <span className="description">Active task</span>
-              <span className="created">created 5 minutes ago</span>
-            </label>
-            <button className="icon icon-edit"></button>
-            <button className="icon icon-destroy"></button>
-          </div>
-        </li> */}
-      
-        </>
-    )
-    }
+          <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            className="edit"
+            name="newTaskVal"
+            value={newTaskVal}
+            onChange={handleChange}
+          />
+          </form>
+        </li>
+      )}
+    </>
+  );
+};
 
-    export default Task
+export default Task;

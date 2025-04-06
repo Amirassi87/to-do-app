@@ -1,17 +1,18 @@
-import Task from './Task.jsx'
+import Task from "./Task.jsx";
 
-
-function TaskList({ tasks }) {
-
-   const taskList = tasks.map((task) => (
-    <Task task = { task.taskTodo } /> 
-  ))
-    return (
-    <>
+function TaskList({ tasks, del, edit, isCompleted }) {
+  return (
     <ul className="todo-list">
-   {taskList}
-   </ul>
-    </>
-    )
-    }
-    export default TaskList 
+      {tasks.map((task, index) => (
+        <Task
+          task={task}
+          key={index}
+          del={del}
+          edit={edit}
+          isCompleted={isCompleted}
+        />
+      ))}
+    </ul>
+  );
+}
+export default TaskList;

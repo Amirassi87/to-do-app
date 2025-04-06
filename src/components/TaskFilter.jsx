@@ -1,20 +1,18 @@
 function TaskFilter() {
-
-    return (
+  return (
     <>
-    <ul className="filters">
-          <li>
-            <button className="selected">All</button>
-          </li>
-          <li>
-            <button>Active</button>
-          </li>
-          <li>
-            <button>Completed</button>
-          </li>
-        </ul>
+      <ul className="filters">
+        <li>
+          <button className="selected">All</button>
+        </li>
+        <li>
+          <button>Active</button>
+        </li>
+        <li>
+          <button>Completed</button>
+        </li>
+      </ul>
     </>
-    )
-    }
-    export default TaskFilter 
-
+  );
+}
+export default TaskFilter;
