@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState  } from "react";
 
 const Task = ({ task, isCompleted, edit, del }) => {
+
   const [isEditing, setIsEditing] = useState(false);
   const [newTaskVal, setNewTaskVal] = useState("");
-
 
   const handleChange = (e) => {
     setNewTaskVal(e.target.value)

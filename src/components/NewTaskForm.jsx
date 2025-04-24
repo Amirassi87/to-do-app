@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const NewTaskForm = ({ addTask }) => {
   const [task, setTask] = useState("");
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -10,6 +11,10 @@ const NewTaskForm = ({ addTask }) => {
     setTask("");
   };
 
+  // useEffect( () => {
+   
+  // })
+  
   return (
     <>
       <form onSubmit={handleSubmit} className="NewTaskForm">
