@@ -12,18 +12,17 @@ function App() {
 
   const [tasks, setTasks] = useState([]);
   const { counter, increase, decrease } = useCounter();
-//  const { showCompleted , showActive , showAll} = useContext(FunctionContext)
   const [filter , setFilter] = useState("all");
 
 
 
-const filterTasks = tasks.filter(val => {
-   if(filter === "active")
-    return !val.completed;
-  if(filter === "completed")
-    return val.completed;
+  const filterTasks = tasks.filter(val => {
+    if(filter === "active")
+      return !val.completed;
+    if(filter === "completed")
+      return val.completed;
     return true;
-  });
+    });
 
   console.log(tasks);
 
@@ -42,42 +41,32 @@ const filterTasks = tasks.filter(val => {
   };
 
   //delete a task
-  const del = (task) => {
-    setTasks(tasks.filter((val) => val.taskTodo !== task));
+  const del = (id) => {
+    setTasks(tasks.filter((val) => val.id !== id));
     decrease();
   };
 
-  //  //show completed tasks
-  //  const showCompleted = () => {
-  //   tasks.filter(val => val.completed === true);
-  // };
 
-  //   //show active tasks
-  //   const showActive = () => {
-  //     tasks.map(val => val.completed === false);
-  //   };
-  
-     //delete completed tasks
-     const delCompleted = () => {
-      setTasks(tasks.filter((val) => val.completed === false));
-    };
+  //delete completed tasks
+  const delCompleted = () => {
+    setTasks(tasks.filter((val) => val.completed === false));
+  };
 
     
   // edit task textfield
-  const edit = (newVal, task) => {
+  const edit = (newVal, id) => {
     setTasks(
       tasks.map((val) =>
-        val.taskTodo === task ? { ...val, taskTodo: newVal } : val
+        val.id === id ? { ...val, taskTodo: newVal } : val
       )
     );
   };
 
   //mark the task completed or still active
-  const isCompleted = (task) => {
+  const isCompleted = (id) => {
     setTasks(
       tasks.map((val) => {
-        //val.taskTodo === task ? { ...val, completed: !val.completed } : val
-      if (val.taskTodo === task) {
+      if (val.id === id) {
         if(val.completed){
           increase();
         }else{
@@ -93,7 +82,7 @@ const filterTasks = tasks.filter(val => {
   };
 
   return (
-     <FunctionContext.Provider value={{setFilter }}>
+     <FunctionContext.Provider value={{setFilter , filter }}>
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>

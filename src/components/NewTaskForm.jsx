@@ -6,14 +6,12 @@ const NewTaskForm = ({ addTask }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //console.log(task)
-    addTask(task);
-    setTask("");
+    if(task !== ""){
+      addTask(task);
+      setTask("");
+    }
   };
 
-  // useEffect( () => {
-   
-  // })
   
   return (
     <>

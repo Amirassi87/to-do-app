@@ -1,20 +1,41 @@
-import React, { useState  } from "react";
+import React, { useState  , useRef , useEffect} from "react";
 
 const Task = ({ task, isCompleted, edit, del }) => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [newTaskVal, setNewTaskVal] = useState("");
+  const inputRef = useRef(0);
 
   const handleChange = (e) => {
     setNewTaskVal(e.target.value)
   }
 
   const handleSubmit = (e) => {
+    console.log(e.target)
     e.preventDefault();
-    edit(newTaskVal , task.taskTodo);
-    setIsEditing(false);
-    setNewTaskVal("")
+    if(newTaskVal !== ""){
+      edit(newTaskVal , task.id);
+      setIsEditing(false);
+      setNewTaskVal("")
+    }
   };
+
+  useEffect(() => {
+
+    const handleCancelEditing = (e) => {
+      if(inputRef.current && !inputRef.current.contains(e.target)){
+        setIsEditing(false);
+      }
+    }
+
+    
+    document.addEventListener('click', handleCancelEditing , true);
+
+    return () => { 
+     document.removeEventListener('click', handleCancelEditing , true);
+    };
+  },[])
+   
 
   return (
     <>
@@ -22,10 +43,12 @@ const Task = ({ task, isCompleted, edit, del }) => {
         <li className={`${task.completed ? "completed" : ""}`}>
           <div className="view">
             <input
-              onChange={() => isCompleted(task.taskTodo)}
+              onChange={() => isCompleted(task.id)}
               className="toggle"
               type="checkbox"
-            />
+              checked={task.completed}
+              />
+          
             <label>
               <span className="description"> {task.taskTodo}</span>
               <span className="created">created {task.createdAt}</span>
@@ -40,7 +63,7 @@ const Task = ({ task, isCompleted, edit, del }) => {
             )}
 
             <button
-              onClick={() => del(task.taskTodo)}
+              onClick={() => del(task.id)}
               className="icon icon-destroy"
             ></button>
           </div>
@@ -59,6 +82,7 @@ const Task = ({ task, isCompleted, edit, del }) => {
           </div>
           <form onSubmit={handleSubmit}>
           <input
+            ref = {inputRef}
             type="text"
             className="edit"
             name="newTaskVal"
