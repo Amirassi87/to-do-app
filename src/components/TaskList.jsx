@@ -1,14 +1,10 @@
 import Task from "./Task.jsx";
-import React, {  } from 'react';
+import React from "react";
 
 function TaskList({ tasks, del, edit, isCompleted }) {
-
   return (
-
     <ul className="todo-list">
-      
-        {tasks.map((task) => (
-
+      {tasks.map((task) => (
         <Task
           task={task}
           key={task.id}
@@ -17,10 +13,7 @@ function TaskList({ tasks, del, edit, isCompleted }) {
           isCompleted={isCompleted}
         />
       ))}
-
-    
     </ul>
-
   );
 }
 export default TaskList;
