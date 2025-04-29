@@ -44,6 +44,9 @@ Here're some of the project's best features:
 
 ```
 git clone https://github.com/Amirassi87/to-do-app.git
+cd to-do-app
+npm install
+
 ```
 
 <p>2. Start the project</p>
