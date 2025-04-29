@@ -2,17 +2,15 @@ import React, { useState } from "react";
 
 const NewTaskForm = ({ addTask }) => {
   const [task, setTask] = useState("");
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(task !== ""){
+    if (task !== "") {
       addTask(task);
       setTask("");
     }
   };
 
-  
   return (
     <>
       <form onSubmit={handleSubmit} className="NewTaskForm">

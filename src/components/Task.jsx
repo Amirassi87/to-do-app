@@ -1,41 +1,48 @@
-import React, { useState  , useRef , useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 
-const Task = ({ task, isCompleted, edit, del }) => {
-
+const Task = ({
+  // default values
+  task = {
+    id: null,
+    taskTodo: "Task has no name",
+    completed: false,
+    createdAt: "Unknown time",
+  },
+  isCompleted = () => {},
+  edit = () => {},
+  del = () => {},
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newTaskVal, setNewTaskVal] = useState("");
   const inputRef = useRef(0);
 
   const handleChange = (e) => {
-    setNewTaskVal(e.target.value)
-  }
+    setNewTaskVal(e.target.value);
+  };
 
   const handleSubmit = (e) => {
-    console.log(e.target)
     e.preventDefault();
-    if(newTaskVal !== ""){
-      edit(newTaskVal , task.id);
+    if (newTaskVal !== "") {
+      edit(newTaskVal, task.id);
       setIsEditing(false);
-      setNewTaskVal("")
+      setNewTaskVal("");
     }
   };
 
   useEffect(() => {
-
     const handleCancelEditing = (e) => {
-      if(inputRef.current && !inputRef.current.contains(e.target)){
+      if (inputRef.current && !inputRef.current.contains(e.target)) {
         setIsEditing(false);
       }
-    }
-
-    
-    document.addEventListener('click', handleCancelEditing , true);
-
-    return () => { 
-     document.removeEventListener('click', handleCancelEditing , true);
     };
-  },[])
-   
+
+    document.addEventListener("click", handleCancelEditing, true);
+
+    return () => {
+      document.removeEventListener("click", handleCancelEditing, true);
+    };
+  }, []);
 
   return (
     <>
@@ -47,11 +54,15 @@ const Task = ({ task, isCompleted, edit, del }) => {
               className="toggle"
               type="checkbox"
               checked={task.completed}
-              />
-          
-            <label>
-              <span className="description"> {task.taskTodo}</span>
-              <span className="created">created {task.createdAt}</span>
+              name="complete"
+              id={`${task.id}`}
+            />
+            <label htmlFor={`${task.id}`}>
+              <span className="description">
+                {" "}
+                {task.taskTodo}
+              </span>
+              <span className="created">created {task.createdAt} ago</span>
             </label>
             {task.completed ? (
               " "
@@ -61,39 +72,51 @@ const Task = ({ task, isCompleted, edit, del }) => {
                 className="icon icon-edit"
               ></button>
             )}
-
             <button
               onClick={() => del(task.id)}
               className="icon icon-destroy"
             ></button>
           </div>
-          <input type="text" className="edit" />
         </li>
       ) : (
         <li className="editing">
           <div className="view">
-            <input className="toggle" type="checkbox" />
-            <label>
-              <span className="description">Editing task</span>
-              <span className="created">created 5 minutes ago</span>
-            </label>
-            <button className="icon icon-edit"></button>
-            <button className="icon icon-destroy"></button>
+            <input
+              className="toggle"
+              type="checkbox"
+              checked={task.completed}
+              name="edit"
+            />
+            
           </div>
           <form onSubmit={handleSubmit}>
-          <input
-            ref = {inputRef}
-            type="text"
-            className="edit"
-            name="newTaskVal"
-            value={newTaskVal}
-            onChange={handleChange}
-          />
+            <input
+              id="edit-task"
+              ref={inputRef}
+              type="text"
+              className="edit"
+              name="editTask"
+              value={newTaskVal}
+              onChange={handleChange}
+            />
           </form>
         </li>
       )}
     </>
   );
+};
+
+//prop types
+Task.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.string,
+    taskTodo: PropTypes.string,
+    completed: PropTypes.bool,
+    createdAt: PropTypes.string,
+  }),
+  isCompleted: PropTypes.func,
+  edit: PropTypes.func,
+  del: PropTypes.func,
 };
 
 export default Task;
