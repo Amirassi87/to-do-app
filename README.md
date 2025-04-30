@@ -53,8 +53,4 @@ npm install
 
 ```
 npm run dev
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> 
