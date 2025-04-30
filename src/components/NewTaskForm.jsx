@@ -12,7 +12,6 @@ const NewTaskForm = ({ addTask }) => {
   };
 
   return (
-    <>
       <form onSubmit={handleSubmit} className="NewTaskForm">
         <input
           type="text"
@@ -24,7 +23,6 @@ const NewTaskForm = ({ addTask }) => {
           autoFocus
         />
       </form>
-    </>
   );
 };
 export default NewTaskForm;

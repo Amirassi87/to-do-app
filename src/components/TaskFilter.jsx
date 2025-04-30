@@ -5,7 +5,6 @@ function TaskFilter() {
   const { setFilter, filter } = useContext(FunctionContext);
 
   return (
-    <>
       <ul className="filters">
         <li>
           <button
@@ -32,7 +31,6 @@ function TaskFilter() {
           </button>
         </li>
       </ul>
-    </>
   );
 }
 export default TaskFilter;
